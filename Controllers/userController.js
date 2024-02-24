@@ -57,13 +57,21 @@ const login=async (req,res)=>{
     
        const userExists=await user.findOne({email});   // if Db is empty then its function generate error 
        if(userExists){
+           
+            const catchPassword=userExists.password;
+            if(catchPassword==password){
         return res.status(200).json({
             message:"Login succesfully",
-        })
+        })}
+        else{
+            return res.status(400).json({
+                message:"password wrong",
+            })
        }
+    }
        else{
         return res.status(400).json({
-            message:"Please First Make sure Registertion !",
+            message:"Np account associted with this email!",
         })
        }
 
